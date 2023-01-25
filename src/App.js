@@ -1,22 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
-
+import axios from 'axios';
+import { useState } from 'react';
 function App() {
+
+  const [city, setCity] = useState("");
+  const [cityProps, setCityProps] = useState([]);
+  const [state, setState] = useState(false)
+
+  const handleChange = async (e) => {
+    e.preventDefault()
+    const api = "fd735f468c6f254cf5bbb44e6524ff23";
+    const baseURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric`
+    await axios.get(baseURL).then(res => {
+      setCityProps(res.data)
+      console.log(cityProps);
+      setState(true)
+    })
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form onSubmit={handleChange}>
+          <input type="text" onChange={e => setCity(e.target.value)}></input>
+          <br />
+          <button>Verileri Getir</button>
+        </form>
+
+        {
+          state ? <div>
+            <h3>{cityProps.name}</h3>
+            <h3>{cityProps.main.temp} °C</h3>
+            <h3>{cityProps.weather[0].description}</h3>
+            <h3>{cityProps.sys.country}</h3>
+          </div> : null
+        }
+
       </header>
     </div>
   );
