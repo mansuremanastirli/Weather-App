@@ -9,8 +9,8 @@ function App() {
 
   const handleChange = async (e) => {
     e.preventDefault()
-    const api = "fd735f468c6f254cf5bbb44e6524ff23";
-    const baseURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}&units=metric`
+    const api = API_KEY;
+    const baseURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     await axios.get(baseURL).then(res => {
       setCityProps(res.data)
       console.log(cityProps);
