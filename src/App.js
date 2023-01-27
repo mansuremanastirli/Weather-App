@@ -1,7 +1,11 @@
 import './App.css';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 function App() {
+  
+  useEffect(() => {
+    document.title = 'Weather App';
+  }, []);
 
   const [city, setCity] = useState("");
   const [cityProps, setCityProps] = useState([]);
